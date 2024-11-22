@@ -1,4 +1,4 @@
-function y= sp_ODE(t,initCond,sp)
+function [y, IN_values] = sp_ODE(t,initCond,sp)
 
 y = zeros(10,1);
 
@@ -18,10 +18,14 @@ IN = 0;
     if t >= 0.4 & t <= 3.9
         IN = 1;
         sprintf('time is %d and IN is %d', t, IN)
+        i = i+1;
     else
         IN = 0;
         sprintf('time is %d and IN is %d', t, IN)
+        i = i+1
     end
+
+IN_values(i) = IN;
 
 y(1) = mSox9 * sp.k4 - miR338 * sp.k7 - miR335 * sp.k6;
 y(2) = mSox9 * sp.at2;
