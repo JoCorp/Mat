@@ -23,4 +23,4 @@ xlim([0 10])
 ylim([0 10])
 legend('OUT1', 'OUT2');
 
-% e & f fehlen
+% I did not find a way to plot IN1 and IN2
