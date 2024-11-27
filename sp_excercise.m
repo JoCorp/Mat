@@ -11,7 +11,11 @@ time = [0 10];
 
 y0 = [0 1 0 0.5 0 0 0 0 0 0];
 
+% ODE function
+
 [time, y] = ode45(@(t,initCond) sp_ODE(t,initCond,sp), time, y0);
+
+% plot
 
 figure(1);
 subplot(2,1,1)
