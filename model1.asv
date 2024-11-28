@@ -1,0 +1,14 @@
+function R1 = model1(t,initCond,p)
+
+R1 = [initCond(1)];
+R2 = 1;
+u = 1;
+T = cast(t, int) - 1
+
+% this is a very stupid way to solve the R1_0 problem. It would be much
+% easier to use an additional value returned by the function R1. However
+% I'm afraid it wouldn't work for the ODE function
+
+R1 = p.ks1 * (u/(1 + (R2/p.K2))) - p.k1 * R1(T)
+
+end

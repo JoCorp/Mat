@@ -9,18 +9,14 @@ load('p.mat', 'p')
 
 time = [0 10];
 
-% definition of R1_0 R2 and u
+% definition of only R1_0 as we need the initCond vector and the output
+% vector to be the same length because of the ode function
 
-% This is also kind of unlucky, as the initCond vector and the output
-% vector have to have the same length. It would be better to save R2 and u1
-% directly in the model1 method, but I dont think we are supposed to do
-% that
-
-y0 = [3 1 1];
+y0 = [3];
 
 % ODE function
 
-[time, y] = ode45(@(t,initCond) model1(t,initCond,p), time, y0);
+[time, R1] = ode45(@(t,initCond) model1(t,initCond,p), time, y0);
 
 %% plot
 
