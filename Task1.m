@@ -14,14 +14,16 @@ time = [0 10];
 
 y0 = [3];
 
-% ODE function
+% calculation using ODE function
 
 [time, R1] = ode45(@(t,initCond) model1(t,initCond,p), time, y0);
 
 % plot
 
 figure(1);
-plot(time, R1(:,1));
+plot(time, R1(:,1), "r-" );
+xlabel('Time')
+ylabel('Gene Expression')
 xlim([0 10])
-ylim([0 10])
-legend('Test');
+ylim([0 20])
+legend('R1');
