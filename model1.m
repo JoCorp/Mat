@@ -1,6 +1,6 @@
 function R1 = model1(t,initCond,p)
 
-R1 = [0];
+R1 = [initCond(1)];
 
 % values of R2 and u assigned directly in function
 
@@ -12,13 +12,6 @@ u = 1;
 % conversion works but time is not a suitable index (49 elements, but time
 % reaches max. value of 10
 
-% if t < 2
-    X = initCond(1);
-%elseif t >= 2
-%T = cast(t, "int8") - 1;
-%X = R1(T);
-%end
-
-R1 = p.ks1 * (u/(1 + (R2/p.K2))) - p.k1 * X;
+R1 = p.ks1 * (u/(1 + (R2/p.K2))) - p.k1 * R1(end);
 
 end
