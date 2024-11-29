@@ -20,7 +20,7 @@ y0 = [3];
 
 % calculation using Euler_method
 
-% work in progress in Euler_ode_-solv
+% new timeRange needed to make sure R1_euler and time are the same length
 
 [R1_euler, timeRange] = euler_ode_solv(time, 40, y0, p);
 
