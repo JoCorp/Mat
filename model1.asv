@@ -1,0 +1,15 @@
+function R1 = model1(t,initCond,p)
+
+
+
+R1 = [initCond(1)];
+
+% values of R2 and u assigned directly in function
+
+R2 = 1;
+u = 1;
+
+
+R1 = p.ks1 * (u/(1 + (R2/p.K2))) - p.k1 * R1(end);
+
+end
