@@ -16,14 +16,20 @@ y0 = [3];
 
 % calculation using ODE function
 
-[time, R1] = ode45(@(t,initCond) model1(t,initCond,p), time, y0);
+[time, R1_ode] = ode45(@(t,initCond) model1(t,initCond,p), time, y0);
+
+% calculation using Euler_method
+
+% work in progress in Euler_ode_-solv
+
+[R1_euler, timeRange] = euler_ode_solv(time, 40, y0, p);
 
 % plot
 
 figure(1);
-plot(time, R1(:,1), "r-" );
+plot(time, R1_ode(:,1), "r-", timeRange, R1_euler(:,1), "b--" );
 xlabel('Time')
 ylabel('Gene Expression')
 xlim([0 10])
 ylim([0 20])
-legend('R1');
+legend('R1 - ode45', 'R1 - euler');

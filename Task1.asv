@@ -14,19 +14,22 @@ time = [0 10];
 
 y0 = [3];
 
-% ODE function
+% calculation using ODE function
 
-[time, R1] = ode45(@(t,initCond) model1(t,initCond,p), time, y0);
+[time, R1_ode] = ode45(@(t,initCond) model1(t,initCond,p), time, y0);
 
-%% plot
+% calculation using Euler_method
+
+% work in progress in Euler_ode_-solv
+
+[R1_euler, timeRange] = euler_ode_solv(time, 15, y0, p);
+
+% plot
 
 figure(1);
-plot(time, R1(:,1));
+plot(time, R1_ode(:,1), "r-", timeRange, R1_euler(:,1), "b-" );
+xlabel('Time')
+ylabel('Gene Expression')
 xlim([0 10])
-ylim([0 10])
-legend('Test', 'mSox9', 'Sox10', 'mSox10', 'Tcf1', 'mTcf1', 'miR155', 'miR335', 'miR338');
-subplot(2,1,2)
-plot(time, y(:,10));
-xlim([0 10])
-ylim([0 10])
-legend('OUT');
+ylim([0 20])
+legend('R1 - ode45', 'R1 - euler');
