@@ -42,30 +42,59 @@ for i = 1:5
             %scanning time for timepoints
             if time(m)> timeRange{i}(idx_euler)
                 % calculating error
-                error(i,j) = R1_euler{i}(idx_euler) - ((R1_ode(m-1)+R1_ode(m))/2);
+                error(i,j) = (R1_euler{i}(idx_euler) - ((R1_ode(m-1)+R1_ode(m))/2))/((R1_ode(m-1)+R1_ode(m))/2);
                 break
             end
         end
     end
 end
 
+% testing for large values of t
+
+% numerical approach
+largeTimeRange = linspace(0,1000,5000);
+[largeR_euler, largeTime] = euler_ode_solv(largeTimeRange, 1000, y0, p);
+% Equilibrium calculation
+R1Eq = equilibriumCalc(1,y0,p);
+
 % plotting
 
 figure(1)
 subplot(2,1,1)
-plot(time, R1_ode(:,1), "k-", timeRange{1}, R1_euler{1}, 'r--', timeRange{2}, R1_euler{2}, 'g--', timeRange{3}, R1_euler{3}, 'b--', timeRange{4}, R1_euler{4}, 'c--', timeRange{5}, R1_euler{5}, 'm--')
+plot(time, R1_ode(:,1), "k-", ...
+    timeRange{1}, R1_euler{1}, 'r--', ...
+    timeRange{2}, R1_euler{2}, 'g--', ...
+    timeRange{3}, R1_euler{3}, 'b--', ...
+    timeRange{4}, R1_euler{4}, 'c--', ...
+    timeRange{5}, R1_euler{5}, 'm--')
+hold on
+plot(10, largeR_euler(end), "ro", MarkerSize=10)
+plot(10, R1Eq, "g+", MarkerSize=10)
 title('Gene Expression')
-xlabel('Time')
+xlabel('Time [min]')
 ylabel('Gene Expression')
-xlim([0 10])
+xlim([0 11])
 ylim([0 12])
-legend('R1 - ode45', 'R1 - euler (N = 20)', 'R1 - euler (N = 40)', 'R1 - euler (N = 60)', 'R1 - euler (N = 80)', 'R1 - euler (N = 100)');
+legend('R1 - ode45', ...
+    'R1 - euler (N = 20)', ...
+    'R1 - euler (N = 40)', ...
+    'R1 - euler (N = 60)', ...
+    'R1 - euler (N = 80)', ...
+    'R1 - euler (N = 100)', ...
+    'Prediction for large t', ...
+    'Solution for large t', ...
+    'Location', 'eastoutside');
 subplot(2,1,2)
-h = bar(error);
+bars = bar(error);
 title('Error quantification')
-xlabel('Time')
-ylabel('Error')
-legend('R1 - euler (N = 20)', 'R1 - euler (N = 40)', 'R1 - euler (N = 60)', 'R1 - euler (N = 80)', 'R1 - euler (N = 100)')
+xlabel('Time [min]')
+ylabel('Error [%]')
+legend('R1 - euler (N = 20)', ...
+    'R1 - euler (N = 40)', ...
+    'R1 - euler (N = 60)', ...
+    'R1 - euler (N = 80)', ...
+    'R1 - euler (N = 100)', ...
+    'Location', 'eastoutside')
 
 colors = [1 0 0;
     0 1 0;
@@ -74,5 +103,5 @@ colors = [1 0 0;
     1 0 1];
 
 for i = 1:height(colors)
-    h(i).FaceColor = colors(i,:);
+    bars(i).FaceColor = colors(i,:);
 end
