@@ -27,19 +27,52 @@ y0 = [3];
 
 % testing if higher N improve the result
 
-figure(1)
-subplot(2,1,1)
-plot(time, R1_ode(:,1), "k-")
-hold on
-
 for i = 1:5
-    [R1_euler, timeRange] = euler_ode_solv(time, (i*20), y0, p);
-    plot(timeRange, R1_euler, '--')
+    [R1_euler{i}, timeRange{i}] = euler_ode_solv(time, (i*20), y0, p);    
 end
 
+% quantifying the error
+
+% scanning of different cell elemtents (different N)
+for i = 1:5
+    % scanning timeRange for timepoints 1 to 10 and saving as idx_euler
+    for j = 1:10
+        idx_euler = find(timeRange{i} == j);
+        for m = 1:49
+            %scanning time for timepoints
+            if time(m)> timeRange{i}(idx_euler)
+                % calculating error
+                error(i,j) = R1_euler{i}(idx_euler) - ((R1_ode(m-1)+R1_ode(m))/2);
+                break
+            end
+        end
+    end
+end
+
+% plotting
+
+figure(1)
+subplot(2,1,1)
+plot(time, R1_ode(:,1), "k-", timeRange{1}, R1_euler{1}, 'r--', timeRange{2}, R1_euler{2}, 'g--', timeRange{3}, R1_euler{3}, 'b--', timeRange{4}, R1_euler{4}, 'c--', timeRange{5}, R1_euler{5}, 'm--')
+title('Gene Expression')
 xlabel('Time')
 ylabel('Gene Expression')
 xlim([0 10])
 ylim([0 12])
 legend('R1 - ode45', 'R1 - euler (N = 20)', 'R1 - euler (N = 40)', 'R1 - euler (N = 60)', 'R1 - euler (N = 80)', 'R1 - euler (N = 100)');
+subplot(2,1,2)
+h = bar(error);
+title('Error quantification')
+xlabel('Time')
+ylabel('Error')
+legend('R1 - euler (N = 20)', 'R1 - euler (N = 40)', 'R1 - euler (N = 60)', 'R1 - euler (N = 80)', 'R1 - euler (N = 100)')
 
+colors = [1 0 0;
+    0 1 0;
+    0 0 1;
+    0 1 1;
+    1 0 1];
+
+for i = 1:height(colors)
+    h(i).FaceColor = colors(i,:);
+end
