@@ -22,14 +22,24 @@ y0 = [3];
 
 % new timeRange needed to make sure R1_euler and time are the same length
 
-[R1_euler, timeRange] = euler_ode_solv(time, 40, y0, p);
+% [R1_euler, timeRange] = euler_ode_solv(time, 40, y0, p); --> included in
+% following test
 
-% plot
+% testing if higher N improve the result
 
-figure(1);
-plot(time, R1_ode(:,1), "r-", timeRange, R1_euler(:,1), "b--" );
+figure(1)
+subplot(2,1,1)
+plot(time, R1_ode(:,1), "k-")
+hold on
+
+for i = 1:5
+    [R1_euler, timeRange] = euler_ode_solv(time, (i*20), y0, p);
+    plot(timeRange, R1_euler, '--')
+end
+
 xlabel('Time')
 ylabel('Gene Expression')
 xlim([0 10])
-ylim([0 20])
-legend('R1 - ode45', 'R1 - euler');
+ylim([0 12])
+legend('R1 - ode45', 'R1 - euler (N = 20)', 'R1 - euler (N = 40)', 'R1 - euler (N = 60)', 'R1 - euler (N = 80)', 'R1 - euler (N = 100)');
+
