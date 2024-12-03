@@ -10,6 +10,8 @@ u = 1;
 
 % function to calculate R1
 
+% check for ^p.n
+
 R1Eq = (p.ks1 * (u/(1 + (R2/p.K2))))/(p.k1);
 
 end
