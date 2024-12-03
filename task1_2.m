@@ -7,6 +7,7 @@ load('p.mat', 'p');
 % define time and initial conditions
 time = [0 10];
 y0 = [3];
+
 p1 = 1:1:20;
 
 for i = 1:length(p1);
@@ -25,9 +26,11 @@ for i = 1:20
     figure(i);
     plot(time_ode{i}, R1_ode{i})
 end
-%xlabel('Time');
+% xlabel('Time');
 % ylabel('Gene Expression');
 % xlim([0 10]);
 % ylim([0 20]);
 % legend('R1 - ode45', 'R1 - euler');
+
+
 
