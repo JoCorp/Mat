@@ -8,29 +8,47 @@ load('p.mat', 'p');
 time = [0 10];
 y0 = [3];
 
-p1 = 1:1:20;
+p1 = 0.1:0.1:20;
+
+% calculation using ode45
 
 for i = 1:length(p1);
     [time_ode{i}, R1_ode{i}] = ode45(@(t, y) submodel1(t, y, p, p1(i)), time, y0);
 end
-% calculation using ode45
-% [time_ode, R1_ode] = ode45(@(t, y) submodel1(t, y, p, p1), time, y0);
 
 % calculation using Euler's method
-% [R1_euler, timeRange] = subtask1(time, 40, y0, p, p1);
 
-% plot results
-%figure(1);
-%plot(time_ode, R1_ode(:,1), "r-", timeRange, R1_euler(:,1), "b--");
-for i = 1:20
-    figure(i);
-    plot(time_ode{i}, R1_ode{i})
+for i = 1:length(p1);
+    [R1_euler{i}, timeRange{i}] = subtask1(time, 40, y0, p, p1(i));
 end
-% xlabel('Time');
-% ylabel('Gene Expression');
-% xlim([0 10]);
-% ylim([0 20]);
-% legend('R1 - ode45', 'R1 - euler');
+
+% creating a dynamic plot with dynamic label
+
+figure(1)
+set(gcf, 'Position', [100, 100, 1000, 600])
+subplot(2,1,1)
+for i = 1:length(p1)/10;
+    plot(time_ode{i*10}, R1_ode{i*10});
+    hold on
+    label_ode{i} = sprintf('p1 = %d', p1(i*10));
+end
+legend(label_ode, 'Location', 'eastoutside');
+xlabel('Time');
+ylabel('Gene Expression');
+title('ode45 calculation for different p1')
+
+subplot(2,1,2)
+for i = 1:length(p1)/10;
+    plot(timeRange{i*10}, R1_euler{i*10});
+    hold on
+    label_euler{i} = sprintf('p1 = %d', p1(i*10));
+end
+legend(label_euler, 'Location', 'eastoutside');
+xlabel('Time');
+ylabel('Gene Expression');
+title('Euler calculation for different p1')
+
+
 
 
 
