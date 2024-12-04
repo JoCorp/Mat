@@ -1,4 +1,5 @@
 function [R, timeRange] = task2euler(time, N, y0, p)
+    
     % Time step, Time range and matrix for results of R 
     deltaT = (time(2) - time(1)) / N; 
     timeRange = time(1):deltaT:time(end);

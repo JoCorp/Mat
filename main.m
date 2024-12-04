@@ -135,12 +135,15 @@ end
 % creating a dynamic plot with dynamic labels
 
 figure(2)
-set(gcf, 'Position', [100, 100, 1000, 600])
+set(gcf, 'Position', [100, 100, 1000, 600]);
 subplot(2,1,1)
-for i = 1:length(p1)/10;
-    plot(time_odeU{i*10}, R1_odeU{i*10});
+plot(time_odeU{1}, R1_odeU{1});
+label_ode{1} = sprintf('p1 = %d', p1(1));
+hold on
+for i = 1:length(p1)/20;
+    plot(time_odeU{i*20}, R1_odeU{i*20});
     hold on
-    label_ode{i} = sprintf('p1 = %d', p1(i*10));
+    label_ode{i+1} = sprintf('p1 = %d', p1(i*20));
 end
 legend(label_ode, 'Location', 'eastoutside');
 xlabel('Time');
@@ -148,10 +151,12 @@ ylabel('Gene Expression');
 title('ode45 calculation for different p1')
 
 subplot(2,1,2)
-for i = 1:length(p1)/10;
-    plot(timeRangeU{i*10}, R1_eulerU{i*10});
-    hold on
-    label_euler{i} = sprintf('p1 = %d', p1(i*10));
+plot(time_odeU{1}, R1_odeU{1});
+label_euler{1} = sprintf('p1 = %d', p1(1));
+hold on
+for i = 1:length(p1)/20;
+    plot(timeRangeU{i*20}, R1_eulerU{i*20});
+    label_euler{i+1} = sprintf('p1 = %d', p1(i*20));
 end
 legend(label_euler, 'Location', 'eastoutside');
 xlabel('Time');
