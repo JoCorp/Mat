@@ -1,7 +1,7 @@
 clear all
 close all
 
-% main
+%% Task 1.1.
 
 % load parameters
 
@@ -34,14 +34,18 @@ end
 % quantifying the error
 
 % scanning of different cell elemtents (different N)
+
 for i = 1:5
     % scanning timeRange for timepoints 1 to 10 and saving as idx_euler
+
     for j = 1:10
         idx_euler = find(timeRange{i} == j);
         for m = 1:49
             %scanning time for timepoints
+
             if time(m)> timeRange{i}(idx_euler)
                 % calculating error
+
                 error(i,j) = (R1_euler{i}(idx_euler) - ((R1_ode(m-1)+R1_ode(m))/2))/((R1_ode(m-1)+R1_ode(m))/2);
                 break
             end
@@ -52,9 +56,11 @@ end
 % testing for large values of t
 
 % numerical approach
+
 largeTimeRange = linspace(0,1000,5000);
 [largeR_euler, largeTime] = euler_ode_solv(largeTimeRange, 1000, y0, p);
 % Equilibrium calculation
+
 R1Eq = equilibriumCalc(1,y0,p);
 
 % plotting
@@ -96,6 +102,8 @@ legend('R1 - euler (N = 20)', ...
     'R1 - euler (N = 100)', ...
     'Location', 'eastoutside')
 
+% making sure plots and bars have the same colors
+
 colors = [1 0 0;
     0 1 0;
     0 0 1;
@@ -105,6 +113,8 @@ colors = [1 0 0;
 for i = 1:height(colors)
     bars(i).FaceColor = colors(i,:);
 end
+
+%% Task 1.2.
 
 % define initial conditions
 
@@ -122,7 +132,7 @@ for i = 1:length(p1);
     [R1_eulerU{i}, timeRangeU{i}] = subtask1(time, 40, y0, p, p1(i));
 end
 
-% creating a dynamic plot with dynamic label
+% creating a dynamic plot with dynamic labels
 
 figure(2)
 set(gcf, 'Position', [100, 100, 1000, 600])
@@ -147,3 +157,40 @@ legend(label_euler, 'Location', 'eastoutside');
 xlabel('Time');
 ylabel('Gene Expression');
 title('Euler calculation for different p1')
+
+%% Task 2.1.
+
+% Time range 
+
+timeR2 = [0 10];
+
+% Initial conditions for R1 and R2
+
+y0 = [3, 0];  
+
+% Calculation using ODE function 
+
+[time_odeR2, R] = ode45(@(t, y) task2model(t, y, p), timeR2, y0);
+
+% Extract R2 from the ODE solution 
+
+R2_ode = R(:, 2);
+
+% Calculation using Euler method (task2euler)
+
+[R_euler, timeRange2] = task2euler(timeR2, 40, y0, p);
+
+% Extract R2 from Euler method results (the second column)
+
+R2_euler = R_euler(:, 2);
+
+% Plot the results
+
+figure(3);
+plot(time_odeR2, R2_ode, 'r-', timeRange2, R2_euler, 'b--');
+xlabel('Time');
+ylabel('Gene Expression');
+xlim([0 10]);
+ylim([0 20]);
+legend('R - ode45', 'R - Euler');
+title('Comparison of R: ODE45 vs Euler Method');
