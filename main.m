@@ -194,3 +194,22 @@ xlim([0 10]);
 ylim([0 20]);
 legend('R - ode45', 'R - Euler');
 title('Comparison of R: ODE45 vs Euler Method');
+
+%%
+
+
+% in Aufgabe 3 reicht es nur ODE zu nutzen
+
+% code muss nicht in den Bericht
+
+% Ergebnisse müssen interpreteiert werden
+
+% Präsentation so strukturieren, dass es am meisten Sinn macht, nicht so,
+% wie die Aufgaben sortiert sind
+
+% Im dePrüfung geht es mehr um die mathematischen Zusammenhänge nicht um
+% Code
+
+% Bei Task 3 Euler weglassen
+
+% Bei Aufgabe 3.2 kann durch Ausprobieren gezeigt werden
