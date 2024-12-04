@@ -212,9 +212,7 @@ title('Comparison of R: ODE45 vs Euler Method');
 % Präsentation so strukturieren, dass es am meisten Sinn macht, nicht so,
 % wie die Aufgaben sortiert sind
 
-% Im dePrüfung geht es mehr um die mathematischen Zusammenhänge nicht um
+% In der Prüfung geht es mehr um die mathematischen Zusammenhänge nicht um
 % Code
-
-% Bei Task 3 Euler weglassen
 
 % Bei Aufgabe 3.2 kann durch Ausprobieren gezeigt werden
