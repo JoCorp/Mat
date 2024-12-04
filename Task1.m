@@ -1,7 +1,7 @@
 clear all
 close all
 
-% main
+%% Task 1.1.
 
 % load parameters
 
@@ -105,6 +105,8 @@ colors = [1 0 0;
 for i = 1:height(colors)
     bars(i).FaceColor = colors(i,:);
 end
+
+%% Task 1.2.
 
 % define initial conditions
 
