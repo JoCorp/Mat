@@ -183,8 +183,50 @@ colors = [1 0 0;
 <span class="keyword">for</span> i = 1:height(colors)
     bars(i).FaceColor = colors(i,:);
 <span class="keyword">end</span>
+
+<span class="comment">% define initial conditions</span>
+
+p1 = 0.1:0.1:20;
+
+<span class="comment">% calculation using ode45</span>
+
+<span class="keyword">for</span> i = 1:length(p1);
+    [time_odeU{i}, R1_odeU{i}] = ode45(@(t, y) submodel1(t, y, p, p1(i)), time, y0);
+<span class="keyword">end</span>
+
+<span class="comment">% calculation using Euler's method</span>
+
+<span class="keyword">for</span> i = 1:length(p1);
+    [R1_eulerU{i}, timeRangeU{i}] = subtask1(time, 40, y0, p, p1(i));
+<span class="keyword">end</span>
+
+<span class="comment">% creating a dynamic plot with dynamic label</span>
+
+figure(2)
+set(gcf, <span class="string">'Position'</span>, [100, 100, 1000, 600])
+subplot(2,1,1)
+<span class="keyword">for</span> i = 1:length(p1)/10;
+    plot(time_odeU{i*10}, R1_odeU{i*10});
+    hold <span class="string">on</span>
+    label_ode{i} = sprintf(<span class="string">'p1 = %d'</span>, p1(i*10));
+<span class="keyword">end</span>
+legend(label_ode, <span class="string">'Location'</span>, <span class="string">'eastoutside'</span>);
+xlabel(<span class="string">'Time'</span>);
+ylabel(<span class="string">'Gene Expression'</span>);
+title(<span class="string">'ode45 calculation for different p1'</span>)
+
+subplot(2,1,2)
+<span class="keyword">for</span> i = 1:length(p1)/10;
+    plot(timeRangeU{i*10}, R1_eulerU{i*10});
+    hold <span class="string">on</span>
+    label_euler{i} = sprintf(<span class="string">'p1 = %d'</span>, p1(i*10));
+<span class="keyword">end</span>
+legend(label_euler, <span class="string">'Location'</span>, <span class="string">'eastoutside'</span>);
+xlabel(<span class="string">'Time'</span>);
+ylabel(<span class="string">'Gene Expression'</span>);
+title(<span class="string">'Euler calculation for different p1'</span>)
 </pre>
-<img vspace="5" hspace="5" src="Task1_01.png" alt=""> <p class="footer">
+<img vspace="5" hspace="5" src="Task1_01.png" alt=""> <img vspace="5" hspace="5" src="Task1_02.png" alt=""> <p class="footer">
 <br>
 <a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024b</a>
 <br>
@@ -300,6 +342,47 @@ for i = 1:height(colors)
     bars(i).FaceColor = colors(i,:);
 end
 
+% define initial conditions
+
+p1 = 0.1:0.1:20;
+
+% calculation using ode45
+
+for i = 1:length(p1);
+    [time_odeU{i}, R1_odeU{i}] = ode45(@(t, y) submodel1(t, y, p, p1(i)), time, y0);
+end
+
+% calculation using Euler's method
+
+for i = 1:length(p1);
+    [R1_eulerU{i}, timeRangeU{i}] = subtask1(time, 40, y0, p, p1(i));
+end
+
+% creating a dynamic plot with dynamic label
+
+figure(2)
+set(gcf, 'Position', [100, 100, 1000, 600])
+subplot(2,1,1)
+for i = 1:length(p1)/10;
+    plot(time_odeU{i*10}, R1_odeU{i*10});
+    hold on
+    label_ode{i} = sprintf('p1 = %d', p1(i*10));
+end
+legend(label_ode, 'Location', 'eastoutside');
+xlabel('Time');
+ylabel('Gene Expression');
+title('ode45 calculation for different p1')
+
+subplot(2,1,2)
+for i = 1:length(p1)/10;
+    plot(timeRangeU{i*10}, R1_eulerU{i*10});
+    hold on
+    label_euler{i} = sprintf('p1 = %d', p1(i*10));
+end
+legend(label_euler, 'Location', 'eastoutside');
+xlabel('Time');
+ylabel('Gene Expression');
+title('Euler calculation for different p1')
 ##### SOURCE END #####
 -->
 </body>
