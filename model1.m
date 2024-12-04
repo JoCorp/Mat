@@ -13,6 +13,6 @@ u = 1;
 
 % function to calculate R1
 
-R1 = p.ks1 * (u/(1 + (R2/p.K2)^p.n)) - p.k1 * R1(end);
+R1 = p.ks1 * (u/(1 + ((R2/p.K2)^p.n))) - p.k1 * R1(end);
 
 end
