@@ -1,7 +1,10 @@
-function dR_task3_2 = task4model(t, y, p)
+function dR_task3_2 = task3_2model(t, y, p)
    % Input
     R1 = y(1);
     R2 = y(2);
+  
+    P1 = 5;
+    P2 = 7;
 
     % Sinusoidal input u(t) 
     u_t3 = P1 .* sin(P2 .* t);
