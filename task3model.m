@@ -18,4 +18,5 @@ function dR_task3 = task3model(t, y, p)
     % Results
     
     dR_task3 = [dR1_task3; dR2_task3];
+
 end
