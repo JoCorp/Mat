@@ -185,7 +185,7 @@ y0 = [3, 0];
 [time_odeR2, R] = ode45(@(t, y) task2model(t, y, p), timeR2, y0);
 
 % Extract R2 from the ODE solution 
-
+R1_ode = R(:, 1);
 R2_ode = R(:, 2);
 
 % Calculation using Euler method (task2euler)
@@ -193,18 +193,20 @@ R2_ode = R(:, 2);
 [R_euler, timeRange2] = task2euler(timeR2, 40, y0, p);
 
 % Extract R2 from Euler method results (the second column)
-
+R1_euler = R_euler(:, 1);
 R2_euler = R_euler(:, 2);
 
 % Plot the results
 
 figure(3);
+hold on;
 plot(time_odeR2, R2_ode, 'r-', timeRange2, R2_euler, 'b--');
+plot(time_odeR2, R1_ode, 'g-', timeRange2, R1_euler, 'm--');
 xlabel('Time');
 ylabel('Gene Expression');
 xlim([0 10]);
 ylim([0 20]);
-legend('R - ode45', 'R - Euler');
+legend('R2 - ode45', 'R2 - Euler', 'R1 - ode45', 'R1 - Euler');
 title('Comparison of R: ODE45 vs Euler Method');
 
 %% Task 2.2.
