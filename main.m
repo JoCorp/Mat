@@ -20,9 +20,7 @@ y0 = [3];
 [time, R1_ode] = ode45(@(t,initCond) model1(t,initCond,p), time, y0);
 
 % calculation using Euler_method
-
 % new timeRange needed to make sure R1_euler and time are the same length
-
 % [R1_euler, timeRange] = euler_ode_solv(time, 40, y0, p); --> included in
 % following test
 
@@ -33,7 +31,6 @@ for i = 1:5
 end
 
 % quantifying the error
-
 % scanning of different cell elemtents (different N)
 
 for i = 1:5
@@ -311,6 +308,7 @@ for i = 1:10;
     R1_ode_3 = R_task3(:, 1);
     R2_ode_3 = R_task3(:, 2);
     plot(R1_ode_3,R2_ode_3);
+    
 end
 xlabel('Gene Expression R1');
 ylabel('Gene Expression R2');
