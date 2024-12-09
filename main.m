@@ -289,14 +289,11 @@ y0_3 = [3, 0];
 
 [time_odeR3, R_task3] = ode45(@(t, y) task3model(t, y, p), timeR3, y0_3);
 
-
 % Extract R1 and R2 from the ODE solution 
 R1_ode_3 = R_task3(:, 1);
 R2_ode_3 = R_task3(:, 2);
 
-
 % Plot the results
-
 figure(5);
 plot(time_odeR3, R1_ode_3, 'r-', time_odeR3, R2_ode_3, 'b');
 xlabel('Time');
@@ -305,7 +302,6 @@ xlim([0 10]);
 ylim([0 20]);
 legend('R1', 'R2');
 title('Mutual Repression of R1 and R2');
-
 
 figure(6);
 hold on
