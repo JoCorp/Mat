@@ -320,7 +320,7 @@ title('Toggle Switch');
 %% Task 3.2.
 
 % Time range
-timeR3 = [0 10];
+timeR3 = [0 120];
 
 % Initial conditions for R1 and R2
 y0_3 = [3, 0];  
@@ -330,15 +330,15 @@ y0_3 = [3, 0];
 
 % Extract R1 and R2 from the ODE solution
 R1_ode_3_2 = R_task3_2(:, 1);
-R2_ode_3_2 = -R_task3_2(:, 2);
+R2_ode_3_2 = R_task3_2(:, 2);
 
 % Plot the results
 figure(7);
 plot(time_odeR3, R1_ode_3_2, 'r-', time_odeR3, R2_ode_3_2, 'b');
 xlabel('Time');
 ylabel('Gene Expression');
-xlim([0 10]);
-ylim([0 25]);
+xlim([0 120]);
+ylim([0 50]);
 legend('R1', 'R2');
 title('Mutual Repression of R1 and R2 with Sinusoidal Input');
 %%
