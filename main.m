@@ -314,11 +314,25 @@ for i = 1:10;
     [time_odeR3, R_task3] = ode45(@(t, y) task3model(t, y, p), timeR3, y0_3);
     R1_ode_3 = R_task3(:, 1);
     R2_ode_3 = R_task3(:, 2);
-    plot(R1_ode_3,R2_ode_3);
+     if i > 3
+        color = [0, 1, 0]; % Green for R2(0) > 3
+    elseif i < 3
+        color = [0.5, 0, 0.5]; % Purple for R2(0) < 3
+    else
+        color = [1, 0.647, 0]; % Orange for R2(0) = 3
+     end
+     plot(R1_ode_3,R2_ode_3, 'color', color);
 end
 xlabel('Gene Expression R1');
 ylabel('Gene Expression R2');
-legend('R1', 'R2');
+
+legendStrings = cell(1, 10);
+for i = 1:10
+    legendStrings{i} = sprintf('Initial R2(0) = %d', i); % Only show R2(0) in the legend
+end
+legend(legendStrings, 'Location', 'best', 'FontSize', 10);
+
+
 title('Toggle Switch');
 
 %% Task 3.2.
