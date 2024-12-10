@@ -318,9 +318,6 @@ for i = 1:10;
         color = [1, 0.647, 0]; % Orange for R2(0) = 3
      end
      plot(R1_ode_3,R2_ode_3, 'color', color);
-
-    plot(R1_ode_3,R2_ode_3);
-    
 end
 xlabel('Gene Expression R1');
 ylabel('Gene Expression R2');
