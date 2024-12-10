@@ -20,9 +20,7 @@ y0 = [3];
 [time, R1_ode] = ode45(@(t,initCond) model1(t,initCond,p), time, y0);
 
 % calculation using Euler_method
-
 % new timeRange needed to make sure R1_euler and time are the same length
-
 % [R1_euler, timeRange] = euler_ode_solv(time, 40, y0, p); --> included in
 % following test
 
@@ -33,7 +31,6 @@ for i = 1:5
 end
 
 % quantifying the error
-
 % scanning of different cell elemtents (different N)
 
 for i = 1:5
@@ -188,7 +185,7 @@ y0 = [3, 0];
 [time_odeR2, R] = ode45(@(t, y) task2model(t, y, p), timeR2, y0);
 
 % Extract R2 from the ODE solution 
-
+R1_ode = R(:, 1);
 R2_ode = R(:, 2);
 
 % Calculation using Euler method (task2euler)
@@ -196,18 +193,20 @@ R2_ode = R(:, 2);
 [R_euler, timeRange2] = task2euler(timeR2, 40, y0, p);
 
 % Extract R2 from Euler method results (the second column)
-
+R1_euler = R_euler(:, 1);
 R2_euler = R_euler(:, 2);
 
 % Plot the results
 
 figure(3);
+hold on;
 plot(time_odeR2, R2_ode, 'r-', timeRange2, R2_euler, 'b--');
+plot(time_odeR2, R1_ode, 'g-', timeRange2, R1_euler, 'm--');
 xlabel('Time');
 ylabel('Gene Expression');
 xlim([0 10]);
 ylim([0 20]);
-legend('R - ode45', 'R - Euler');
+legend('R2 - ode45', 'R2 - Euler', 'R1 - ode45', 'R1 - Euler');
 title('Comparison of R: ODE45 vs Euler Method');
 
 %% Task 2.2.
@@ -289,14 +288,11 @@ y0_3 = [3, 0];
 
 [time_odeR3, R_task3] = ode45(@(t, y) task3model(t, y, p), timeR3, y0_3);
 
-
 % Extract R1 and R2 from the ODE solution 
 R1_ode_3 = R_task3(:, 1);
 R2_ode_3 = R_task3(:, 2);
 
-
 % Plot the results
-
 figure(5);
 plot(time_odeR3, R1_ode_3, 'r-', time_odeR3, R2_ode_3, 'b');
 xlabel('Time');
@@ -306,7 +302,6 @@ ylim([0 20]);
 legend('R1', 'R2');
 title('Mutual Repression of R1 and R2');
 
-
 figure(6);
 hold on
 for i = 1:10;
@@ -314,6 +309,7 @@ for i = 1:10;
     [time_odeR3, R_task3] = ode45(@(t, y) task3model(t, y, p), timeR3, y0_3);
     R1_ode_3 = R_task3(:, 1);
     R2_ode_3 = R_task3(:, 2);
+<<<<<<< HEAD
      if i > 3
         color = [0, 1, 0]; % Green for R2(0) > 3
     elseif i < 3
@@ -322,6 +318,10 @@ for i = 1:10;
         color = [1, 0.647, 0]; % Orange for R2(0) = 3
      end
      plot(R1_ode_3,R2_ode_3, 'color', color);
+=======
+    plot(R1_ode_3,R2_ode_3);
+    
+>>>>>>> 9d58c7ced464028e7d247daff7a0cbdb2a8b52c6
 end
 xlabel('Gene Expression R1');
 ylabel('Gene Expression R2');
@@ -338,7 +338,7 @@ title('Toggle Switch');
 %% Task 3.2.
 
 % Time range
-timeR3 = [0 10];
+timeR3 = [0 120];
 
 % Initial conditions for R1 and R2
 y0_3 = [3, 0];  
@@ -348,15 +348,15 @@ y0_3 = [3, 0];
 
 % Extract R1 and R2 from the ODE solution
 R1_ode_3_2 = R_task3_2(:, 1);
-R2_ode_3_2 = -R_task3_2(:, 2);
+R2_ode_3_2 = R_task3_2(:, 2);
 
 % Plot the results
 figure(7);
 plot(time_odeR3, R1_ode_3_2, 'r-', time_odeR3, R2_ode_3_2, 'b');
 xlabel('Time');
 ylabel('Gene Expression');
-xlim([0 10]);
-ylim([0 25]);
+xlim([0 120]);
+ylim([0 50]);
 legend('R1', 'R2');
 title('Mutual Repression of R1 and R2 with Sinusoidal Input');
 %%
