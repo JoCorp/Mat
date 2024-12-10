@@ -355,19 +355,3 @@ xlim([0 120]);
 ylim([0 50]);
 legend('R1', 'R2');
 title('Mutual Repression of R1 and R2 with Sinusoidal Input');
-%%
-% in Aufgabe 3 reicht es nur ODE zu nutzen
-
-% code muss nicht in den Bericht
-
-% Ergebnisse müssen interpreteiert werden
-
-% Präsentation so strukturieren, dass es am meisten Sinn macht, nicht so,
-% wie die Aufgaben sortiert sind
-
-% In der Prüfung geht es mehr um die mathematischen Zusammenhänge nicht um
-% Code
-
-% Bei Task 3 Euler weglassen
-
-% Bei Aufgabe 3.2 kann durch Ausprobieren gezeigt werden
